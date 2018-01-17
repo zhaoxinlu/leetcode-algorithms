@@ -3,7 +3,7 @@
 隐马尔可夫模型有3个基本问题：
     1.概率计算问题（前向forward算法与后向backword算法）
         给定模型lamada=(A,B,Pi)和观测序列O(o1,o2,...,on)，计算模型lamada下观测序列O出现的概率P(O|lamada).
-    2.学习问题
+    2.学习问题（Baum-Welch算法）
     3.预测问题（维特比算法）
 """
 import numpy as np
