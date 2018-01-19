@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 '''
 Test 1-HMM
+Url：http://www.hankcs.com/ml/hidden-markov-model.html
+Based on hankcs
 '''
 import numpy as np
 import hmm
@@ -71,5 +73,30 @@ if __name__ == '__main__':
     print Pi
 
     h = hmm.HMM(A, B, Pi)
-    observations_data, states_data = h.simulate(10)
-    print observations_data, states_data
+    V, p = h.viterbi(observations_index)
+    print " " * 7, " ".join(("%10s" % observations_index_label[i]) for i in observations_index)
+    for s in range(0, 2):
+        print "%7s: " % states_index_label[s] + " ".join("%10s" % ("%f" % v) for v in V[s])
+    print '\nThe most possible states and probability are:'
+    p, ss = h.state_path(observations_index)
+    for s in ss:
+        print states_index_label[s],
+    print p
+
+    # run a baum_welch_train
+    observations_data, states_data = h.simulate(100)
+    # print observations_data
+    # print states_data
+    guess = hmm.HMM(np.array([[0.5, 0.5],
+                              [0.5, 0.5]]),
+                    np.array([[0.3, 0.3, 0.3],
+                              [0.3, 0.3, 0.3]]),
+                    np.array([0.5, 0.5])
+                    )
+    guess.baum_welch_train(observations_data)
+    states_out = guess.state_path(observations_data)[1]
+    p = 0.0
+    for s in states_data:
+        if next(states_out) == s: p += 1
+
+    print p / len(states_data)
