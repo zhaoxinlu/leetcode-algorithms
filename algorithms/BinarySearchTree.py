@@ -54,11 +54,9 @@ class BinarySortTree:
             elif entry < key:
                 bst = bst.right
             else:
-                print "Find" , entry, "in BSTree!"
-                return entry
+                print "Find", entry, "in BSTree!"
 
-        print "can't find ", key
-        return None
+        print "can't find key", key, "!"
 
     def insert(self, key):
         """
@@ -146,6 +144,147 @@ class BinarySortTree:
             yield node.data
             node = node.right
 
+    def preorder_digui(self, _root):
+        """
+        二叉树的前序遍历递归实现
+        :param _root: root node
+        :return: list
+        """
+        if _root == None:
+            return []
+
+        rt = [_root.data]
+        left = self.preorder_digui(_root.left)
+        right = self.preorder_digui(_root.right)
+        return rt+left+right
+
+    def preorder_stack(self):
+        """
+        二叉树的前序遍历非递归实现
+        :return: list
+        """
+        if self._root == None:
+            return None
+
+        nodes = []
+        nodes.append(self._root)
+        elems = []
+
+        while nodes:
+            node = nodes.pop()
+            elems.append(node.data)
+            # 由于栈后进先出的原则
+            if node.right:
+                nodes.append(node.right)
+            if node.left:
+                nodes.append(node.left)
+
+        return elems
+
+    def inorder_digui(self, _root):
+        """
+        二叉树的中序遍历递归实现
+        :param _root: root node
+        :return: list
+        """
+        if _root == None:
+            return []
+
+        rt = [_root.data]
+        left = self.inorder_digui(_root.left)
+        right = self.inorder_digui(_root.right)
+        return left+rt+right
+
+    def inorder_stack(self):
+        """
+        二叉树的中序遍历非递归实现
+            1. 使用一个栈保存结点（列表实现）；
+            2. 如果结点存在，入栈，然后将当前指针指向左子树，直到为空；
+            3. 当前结点不存在，则出栈栈顶元素，并把当前指针指向栈顶元素的右子树；
+            4. 栈不为空，循环2、3。
+        :return: list
+        """
+        if not self._root:
+            return None
+
+        nodes = []
+        elems = []
+        node = self._root
+        while node or nodes:
+            while node:
+                nodes.append(node)
+                node = node.left
+            node = nodes.pop()
+            elems.append(node.data)
+            node = node.right
+
+        return elems
+
+    def postorder_digui(self, _root):
+        """
+        二叉树的后序遍历递归实现
+        :param _root: root node
+        :return: list
+        """
+        if _root == None:
+            return []
+
+        rt = [_root.data]
+        left = self.postorder_digui(_root.left)
+        right = self.postorder_digui(_root.right)
+        return left+right+rt
+
+    def postorder_stack(self):
+        """
+        二叉树的后序遍历非递归实现
+            1.使用栈存储结点；
+            2.当结点存在或者栈不为空，判断结点；
+            3.当结点存在，结点值保存，结点入栈，并将指针指向结点的右子树；
+            4.当栈不为空，结点出栈，并将指针指向左子树；
+            5.重复2-4直到结果产生；
+            6.逆序输出结果，利用Python列表的-1.
+        :return:
+        """
+        if not self._root:
+            return None
+
+        elems = []
+        nodes = []
+        node = self._root
+
+        while node or nodes:
+            while node:
+                elems.append(node.data)
+                nodes.append(node)
+                node = node.right
+            if nodes:
+                tmp = nodes.pop()
+                node = tmp.left
+
+        return elems[::-1]
+
+    def traverse(self):
+        """
+        二叉树的层序遍历
+        :return:
+        """
+        if self._root == None:
+            return None
+
+        nodes = [self._root]
+        elems = [self._root.data]
+        while nodes != []:
+            tmp = nodes.pop(0)
+            if tmp.left != None:
+                nodes.append(tmp.left)
+                elems.append(tmp.left.data)
+
+            if tmp.right != None:
+                nodes.append(tmp.right)
+                elems.append(tmp.right.data)
+
+        return elems
+
 if __name__ == '__main__':
     lis = [62, 58, 88, 48, 73, 99, 35, 51, 93, 29, 37, 49, 56, 36, 50]
     bs_tree = BinarySortTree()
@@ -153,8 +292,28 @@ if __name__ == '__main__':
         bs_tree.insert(lis[i])
 
     # 打印构造的二叉排序树
+    lists = []
     for i in bs_tree:
-        print i
+        lists.append(i)
+    print "BSTree is : ", lists
     # bs_tree.insert(100)
     # bs_tree.delete(58)
-    print bs_tree.search(5)
+    bs_tree.search(5)
+
+    pre = bs_tree.preorder_digui(bs_tree._root)
+    print "递归前序遍历: ", pre
+    pre2 = bs_tree.preorder_stack()
+    print "非递归前序遍历: ", pre2
+
+    ino = bs_tree.inorder_digui(bs_tree._root)
+    print "递归中序遍历: ", ino
+    ino2 = bs_tree.inorder_stack()
+    print "非递归中序遍历: ", ino2
+
+    pos = bs_tree.postorder_digui(bs_tree._root)
+    print "递归后序遍历: ", pos
+    pos2 = bs_tree.postorder_stack()
+    print "非递归后序遍历: ", pos2
+
+    level = bs_tree.traverse()
+    print "层序遍历: ", level
