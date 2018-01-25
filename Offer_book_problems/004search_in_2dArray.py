@@ -14,7 +14,7 @@ def search_in2dArray(arr, num):
     col = len(arr[0])-1
     # 比较右上角元素
 
-    while row <= rows and col >= 0:
+    while row < rows and col >= 0:
         if arr[row][col] == num:
             print "The number {} is in array[{}][{}]".format(num, row, col)
             return
@@ -32,7 +32,7 @@ def search_in2dArray2(arr, num):
     # 比较左下角元素
     row = rows-1
     col = 0
-    while col <= cols and row >= 0:
+    while col < cols and row >= 0:
         if arr[row][col] == num:
             print "The number {} is in array[{}][{}].".format(num, row, col)
             return
@@ -46,5 +46,5 @@ def search_in2dArray2(arr, num):
 
 if __name__ == '__main__':
     arr = [[1, 2, 8, 9], [2, 4, 9, 12], [4, 7, 10, 13], [6, 8, 11, 15]]
-    search_in2dArray(arr, 7)
+    search_in2dArray(arr, 6)
     search_in2dArray2(arr, 5)
