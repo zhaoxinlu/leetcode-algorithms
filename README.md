@@ -1,7 +1,7 @@
 # leetcode-algorithms
 leetcode solutions &amp; some important algorithms
 
-### 1-50
+### 1-50/51-100
 leetcode problems
 
 ### Offer_book_problems
