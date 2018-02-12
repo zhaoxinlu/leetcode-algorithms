@@ -364,6 +364,44 @@ class BTree(object):
 
         return self.isMirrorTwoTree(root.lchild, root.rchild)
 
+    def findCertainValuePathOfBTree(self, root, value):
+        """
+        Offer034二叉树中和为某一值的所有路径
+        :param root:
+        :param value:
+        :return:
+        """
+        if root == None:
+            return []
+
+        path = []
+        curSum = 0
+        self.findOneCerValPathOfTree(root, value, path, curSum)
+
+    def findOneCerValPathOfTree(self, root, value, path, curSum):
+        """
+        逐条输出二叉树中和为某一值的路径
+        :param root:
+        :param value:
+        :param path:
+        :param curSum:
+        :return:
+        """
+        curSum += root.val
+        path.append(root.val)
+
+        isLeaf = (root.lchild == None and root.rchild == None)
+        if curSum == value and isLeaf:
+            print path
+
+        if root.lchild != None:
+            self.findOneCerValPathOfTree(root.lchild, value, path, curSum)
+        if root.rchild != None:
+            self.findOneCerValPathOfTree(root.rchild, value, path, curSum)
+
+        path.pop()
+
+
 if __name__ == '__main__':
     # 用例测试功能函数是否正确
     print "构建第一棵二叉树中..."
@@ -410,6 +448,8 @@ if __name__ == '__main__':
     BTree1.levelOrderLayer(BTree1.root)
     print "之字型分行层次打印第一棵二叉树:"
     BTree1.zigzagOrder(BTree1.root)
+    print "第二棵二叉树中和为value=19的路径为:"
+    BTree2.findCertainValuePathOfBTree(BTree2.root, value=19)
 
     print "第一棵二叉树的最大深度是:", BTree1.maxDepth(BTree1.root)
     print "第一棵二叉树的节点个数是:", BTree1.numOfTreeNode(BTree1.root)
