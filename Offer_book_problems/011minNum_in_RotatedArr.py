@@ -28,7 +28,7 @@ def minNumInRotatedArray(lists):
 
         if lists[mid] >= lists[left]:
             left = mid
-        elif lists[mid] < lists[right]:
+        else:
             right = mid
 
     return lists[mid]
@@ -48,5 +48,5 @@ def minInOrder(lists):
     return minNum
 
 if __name__ == '__main__':
-    lists = [4, 5, 7, 1, 2, 4]
+    lists = [3, 1, 1, 1, 3]
     print minNumInRotatedArray(lists=lists)

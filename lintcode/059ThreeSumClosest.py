@@ -20,14 +20,14 @@ class Solution:
             return sum(numbers)
 
         numbers.sort()
-        result = None
+        result = 2147483647
 
         for i in range(len(numbers)-2):
             left = i + 1
             right = len(numbers) - 1
             while left < right:
                 val = numbers[i] + numbers[left] + numbers[right]
-                if not result or abs(val - target) < abs(result - target):
+                if abs(val - target) < abs(result - target):
                     result = val
                 elif val <= target:
                     left += 1
