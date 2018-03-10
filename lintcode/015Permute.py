@@ -12,7 +12,7 @@ class Solution:
     """
     def permute(self, nums):
         # write your code here
-        if (len(nums) <= 1):
+        if len(nums) <= 1:
             return [nums]
         r = []
         for i in range(len(nums)):
