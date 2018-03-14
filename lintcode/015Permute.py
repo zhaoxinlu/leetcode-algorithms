@@ -39,5 +39,25 @@ class Solution:
                 self.helper(nums, left+1, right, result)
                 nums[i], nums[left] = nums[left], nums[i]
 
+    def permuteII(self, nums):
+        # write your code here
+        nums.sort()
+        self.results = []
+        self.DFS(nums, [])
+        return self.results
+
+    def DFS(self, nums, tmplist):
+        if len(tmplist) == len(nums):
+            self.results.append(tmplist[:])
+            return
+        else:
+            for i in range(0, len(nums)):
+                if nums[i] in tmplist:
+                    continue
+                tmplist.append(nums[i])
+                self.DFS(nums, tmplist)
+                tmplist.pop()
+
+
 if __name__ == '__main__':
     print Solution().permute([1, 2, 3])
