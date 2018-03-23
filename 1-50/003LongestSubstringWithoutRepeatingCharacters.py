@@ -5,6 +5,7 @@ Given a string, find the length of the longest substring without repeating chara
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
         """
+        哈希表+两个指针，时间复杂度O(n)
         :type s: str
         :rtype: int
         """
