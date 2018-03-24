@@ -9,6 +9,7 @@ The order of elements can be changed. It doesn't matter what you leave beyond th
 class Solution(object):
     def removeElement(self, nums, val):
         """
+        双指针
         :type nums: List[int]
         :type val: int
         :rtype: int
