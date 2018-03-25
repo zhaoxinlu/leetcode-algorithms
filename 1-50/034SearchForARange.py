@@ -3,7 +3,7 @@
 Editor: Zhao Xinlu
 School: BUPT
 Date: 2018-03-24
-算法思想：在旋转排序数组中搜索
+算法思想：在数组中搜索，左右搜索
 """
 class Solution(object):
     def searchRange(self, nums, target):
