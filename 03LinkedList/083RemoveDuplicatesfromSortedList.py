@@ -16,6 +16,7 @@ class Solution(object):
         """
         if head == None:
             return None
+
         curP = head
         nextP = head.next
 
