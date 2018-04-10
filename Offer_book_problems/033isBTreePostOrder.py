@@ -18,9 +18,8 @@ def isPostOrderOfBTree(lists):
     rootVal = lists[length-1]
 
     i = 0
-    for i in range(length-1):
-        if lists[i] > rootVal:
-            break
+    while lists[i] < rootVal:
+        i += 1
 
     print i
 
@@ -40,5 +39,5 @@ def isPostOrderOfBTree(lists):
 
 if __name__ == '__main__':
     # lists = [5, 7, 6, 9, 11, 10, 8]
-    lists = [5, 8]
+    lists = [4, 6, 7, 5]
     print isPostOrderOfBTree(lists)
